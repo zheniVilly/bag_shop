@@ -1,0 +1,26 @@
+{% extends "shop/base.html" %}
+{% block title %}{{ category.name }}{% endblock %}
+
+{% block content %}
+<h1 class="mb-4">Категория: {{ category.name }}</h1>
+
+<div class="row">
+    {% for product in products %}
+        <div class="col-md-4 mb-4">
+            <div class="card shadow-sm p-3">
+
+                <h5>{{ product.title }}</h5>
+                <p class="text-muted">{{ product.price }} ₽</p>
+
+                <a href="{% url 'shop:product_detail' pk=product.pk %}" class="btn btn-primary">
+                    Подробнее
+                </a>
+            </div>
+        </div>
+    {% empty %}
+        <p>В этой категории нет товаров</p>
+    {% endfor %}
+</div>
+
+<a href="{% url 'shop:product_list' %}" class="btn btn-secondary">Назад</a>
+{% endblock %}

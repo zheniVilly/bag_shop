@@ -1,0 +1,29 @@
+{% extends "shop/base.html" %}
+{% block content %}
+
+<h2>Корзина</h2>
+
+{% for item in items %}
+<div class="card mb-2 p-2">
+    <strong>{{ item.product.title }}</strong><br>
+    {{ item.quantity }} шт × {{ item.product.price }} ₽
+
+    <a href="{% url 'shop:remove_from_cart' item.id %}" class="btn btn-sm btn-danger float-end">
+        Удалить
+    </a>
+</div>
+{% empty %}
+<p>Корзина пуста</p>
+{% endfor %}
+
+<hr>
+
+<h3>Итого: {{ total }} ₽</h3>
+
+{% if items %}
+<a href="{% url 'shop:create_order' %}" class="btn btn-success">
+    Оформить заказ
+</a>
+{% endif %}
+
+{% endblock %}

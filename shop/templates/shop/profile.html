@@ -1,0 +1,21 @@
+{% extends "shop/base.html" %}
+
+{% block content %}
+<div class="container py-4">
+    <h2>Личный кабинет</h2>
+
+    <p><strong>Логин:</strong> {{ user.username }}</p>
+    <p><strong>Email:</strong> {{ user.email|default:"не указан" }}</p>
+    <p><strong>Имя:</strong> {{ user.first_name|default:"-" }}</p>
+    <p><strong>Фамилия:</strong> {{ user.last_name|default:"-" }}</p>
+    <p><strong>Дата регистрации:</strong> {{ user.date_joined|date:"d.m.Y H:i" }}</p>
+    <p><strong>Последний вход:</strong> {{ user.last_login|date:"d.m.Y H:i" }}</p>
+
+    <a href="{% url 'shop:logout' %}" class="btn btn-danger mt-3">Выйти</a>
+
+    <a href="{% url 'shop:profile_edit' %}" class="btn btn-primary mt-3">
+        Редактировать профиль
+    </a>
+
+</div>
+{% endblock %}

@@ -1,0 +1,68 @@
+{% extends "shop/base.html" %}
+{% block title %}Каталог{% endblock %}
+
+{% block content %}
+<h1 class="mb-4">Каталог товаров</h1>
+<form method="get" class="row mb-4">
+
+
+    <div class="col-md-4">
+        <label for="search" class="form-label visually-hidden">Поиск</label>
+        <input id="search" type="text" name="search" class="form-control"
+               placeholder="Поиск..." value="{{ request.GET.search }}">
+    </div>
+
+
+    <div class="col-md-3">
+        <label for="category" class="form-label visually-hidden">Категория</label>
+        <select id="category" name="category" class="form-select" aria-label="Фильтр по категории">
+            <option value="">Все категории</option>
+            {% for c in categories %}
+                <option value="{{ c.id }}"
+                    {% if request.GET.category == c.id|stringformat:"s" %}selected{% endif %}>
+                    {{ c.name }}
+                </option>
+            {% endfor %}
+        </select>
+    </div>
+
+
+    <div class="col-md-3">
+        <label for="sort" class="form-label visually-hidden">Сортировка</label>
+        <select id="sort" name="sort" class="form-select" aria-label="Сортировка товаров">
+            <option value="">Без сортировки</option>
+            <option value="name_asc"  {% if request.GET.sort == 'name_asc' %}selected{% endif %}>Название A–Я</option>
+            <option value="name_desc" {% if request.GET.sort == 'name_desc' %}selected{% endif %}>Название Я–А</option>
+            <option value="price_asc" {% if request.GET.sort == 'price_asc' %}selected{% endif %}>Цена вверх</option>
+            <option value="price_desc"{% if request.GET.sort == 'price_desc' %}selected{% endif %}>Цена вниз</option>
+            
+        </select>
+    </div>
+
+
+    <div class="col-md-2">
+        <button type="submit" class="btn btn-dark w-100">Применить</button>
+    </div>
+
+</form>
+
+<div class="row">
+    {% for product in products %}
+        <div class="col-md-4 mb-4">
+            <div class="card shadow-sm p-3">
+                <h5>{{ product.title }}</h5>
+                <p class="text-muted">{{ product.price }} ₽</p>
+                <a href="{% url 'shop:favorite_toggle' pk=product.pk %}" class="btn btn-outline-danger">
+                    ♥
+                </a>
+
+                <a href="{% url 'shop:product_detail' pk=product.pk %}" class="btn btn-primary">
+                    Подробнее
+                </a>
+            </div>
+        </div>
+    {% empty %}
+        <p>Нет товаров.</p>
+    {% endfor %}
+</div>
+{% endblock %}

@@ -1,0 +1,23 @@
+{% extends "shop/base.html" %}
+
+{% block content %}
+<h2>Избранные товары</h2>
+
+{% if favorites %}
+    <div class="row">
+        {% for fav in favorites %}
+            <div class="col-3">
+                <div class="card mb-3">
+                    <div class="card-body">
+                        <h5>{{ fav.product.title }}</h5>
+                        <p>{{ fav.product.price }} BYN</p>
+                        <a href="{% url 'shop:product_detail' fav.product.pk %}" class="btn btn-primary">Подробнее</a>
+                    </div>
+                </div>
+            </div>
+        {% endfor %}
+    </div>
+{% else %}
+    <p>Пока пусто.</p>
+{% endif %}
+{% endblock %}
