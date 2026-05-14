@@ -12,6 +12,9 @@
     <p><strong>Последний вход:</strong> {{ user.last_login|date:"d.m.Y H:i" }}</p>
 
     <a href="{% url 'shop:logout' %}" class="btn btn-danger mt-3">Выйти</a>
+    <a class="nav-link text-white" href="/cart">Корзина</a>
+    <a class="nav-link text-white" href="/order">Заказы</a>
+
 
     <a href="{% url 'shop:profile_edit' %}" class="btn btn-primary mt-3">
         Редактировать профиль

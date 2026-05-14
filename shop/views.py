@@ -31,6 +31,13 @@ def product_list(request):
     category_id = request.GET.get('category')
     search = request.GET.get('search')
 
+    favorite_ids = []
+    if request.user.is_authenticated:
+        favorite_ids = list(
+            Favorite.objects.filter(user=request.user)
+            .values_list('product_id', flat=True)
+        )
+
     if category_id:
         products = products.filter(category_id=category_id)
 
@@ -54,6 +61,7 @@ def product_list(request):
     return render(request, 'shop/product_list.html', {
         'products': products,
         'categories': categories,
+        'favorite_ids': favorite_ids,
     })
 
 
@@ -114,6 +122,12 @@ def favorites_list(request):
     return render(request, 'shop/favorites_list.html', {
         'favorites': favorites
     })
+
+def favorite_remove(request, pk):
+    fav = Favorite.objects.filter(pk=pk, user=request.user).first()
+    if fav:
+        fav.delete()
+    return redirect('shop:favorites_list')
 
 
 
@@ -233,3 +247,22 @@ def orders_list(request):
     return render(request, 'shop/orders.html', {
         'orders': orders
     })
+
+def cart_increment(request, item_id):
+    item = get_object_or_404(CartItem, id=item_id, cart__user=request.user)
+    item.quantity += 1
+    item.save()
+    return redirect('shop:cart')
+
+
+def cart_decrement(request, item_id):
+    item = get_object_or_404(CartItem, id=item_id, cart__user=request.user)
+
+    if item.quantity > 1:
+        item.quantity -= 1
+        item.save()
+    else:
+        item.delete()
+
+    return redirect('shop:cart')
+

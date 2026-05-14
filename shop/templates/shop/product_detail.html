@@ -8,9 +8,12 @@
 
 <p>{{ product.description }}</p>
 
-<a href="{% url 'shop:favorite_toggle' pk=product.pk %}" class="btn btn-outline-danger">
-    В избранное
+<a href="{% url 'shop:favorite_toggle' product.id %}"
+   class="btn {% if product.id in favorite_ids %}btn-danger{% else %}btn-outline-danger{% endif %} w-100">
+    {% if product.id in favorite_ids %}В избранном{% else %}В избранное{% endif %}
 </a>
+
+
 
 <a href="{% url 'shop:add_to_cart' pk=product.pk %}" class="btn btn-primary">
     Добавить в корзину

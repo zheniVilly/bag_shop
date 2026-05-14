@@ -12,12 +12,16 @@
                         <h5>{{ fav.product.title }}</h5>
                         <p>{{ fav.product.price }} BYN</p>
                         <a href="{% url 'shop:product_detail' fav.product.pk %}" class="btn btn-primary">Подробнее</a>
+                        <a href="{% url 'shop:favorite_remove' fav.id %}" class="btn btn-danger">
+                                Удалить
+                        </a>
+                        
                     </div>
                 </div>
             </div>
         {% endfor %}
     </div>
 {% else %}
-    <p>Пока пусто.</p>
+    <p>Спасибо но нет</p>
 {% endif %}
 {% endblock %}

@@ -19,6 +19,8 @@ urlpatterns = [
 
     path('favorites/', views.favorites_list, name='favorites_list'),
     path('favorite/toggle/<int:pk>/', views.favorite_toggle, name='favorite_toggle'),
+    path('favorite/remove/<int:pk>/', views.favorite_remove, name='favorite_remove'),
+
 
     path('cart/', views.cart_view, name='cart'),
     path('cart/add/<int:pk>/', views.add_to_cart, name='add_to_cart'),
@@ -26,6 +28,11 @@ urlpatterns = [
     path('cart/order/', views.create_order, name='create_order'),
     
     path('orders/', views.orders_list, name='orders'),
+
+    path('cart/inc/<int:item_id>/', views.cart_increment, name='cart_inc'),
+    path('cart/dec/<int:item_id>/', views.cart_decrement, name='cart_dec'),
+
+
 
 
 ]
