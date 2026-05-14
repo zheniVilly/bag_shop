@@ -12,9 +12,15 @@
                 <h5>{{ product.title }}</h5>
                 <p class="text-muted">{{ product.price }} ₽</p>
 
-                <a href="{% url 'shop:product_detail' pk=product.pk %}" class="btn btn-primary">
-                    Подробнее
-                </a>
+                    <a href="{% url 'shop:add_to_cart' pk=product.pk %}"
+                    class="btn btn-primary fw-semibold">
+                        Добавить в корзину
+                    </a>
+
+                    <a href="{% url 'shop:product_detail' pk=product.pk %}"
+                    class="btn btn-outline-secondary">
+                        Подробнее
+                    </a>
             </div>
         </div>
     {% empty %}

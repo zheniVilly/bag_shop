@@ -87,19 +87,20 @@ def profile(request):
     })
 
 def profile_edit(request):
-    profile = request.user.profile
+    user = request.user
 
     if request.method == 'POST':
-        form = ProfileForm(request.POST, instance=profile)
+        form = ProfileForm(request.POST, instance=user)
         if form.is_valid():
             form.save()
             return redirect('shop:profile')
     else:
-        form = ProfileForm(instance=profile)
+        form = ProfileForm(instance=user)
 
     return render(request, 'shop/profile_edit.html', {'form': form})
 
-from .models import Favorite, Product
+
+
 
 def favorite_toggle(request, pk):
     if not request.user.is_authenticated:

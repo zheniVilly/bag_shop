@@ -59,8 +59,6 @@
                         {% if product.id in favorite_ids %}В избранном{% else %}В избранное{% endif %}
                     </a>
 
-
-
                     <a href="{% url 'shop:add_to_cart' pk=product.pk %}"
                     class="btn btn-primary fw-semibold">
                         Добавить в корзину
